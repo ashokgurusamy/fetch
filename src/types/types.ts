@@ -31,3 +31,12 @@ export interface SearchResponse {
   next: string;
   prev: string;
 }
+
+export interface SearchInput {
+  zipCodes?: string[];
+  ageMin?: number;
+  ageMax?: number;
+  breeds?: string[];
+  size?: number;
+  from?: string;
+}

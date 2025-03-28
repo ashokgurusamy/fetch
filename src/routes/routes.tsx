@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import ProtectedRoute from "./ProtectedRoutes";
 import { DogsList } from "../pages/Search/DogsList";
+import { SearchProvider } from "../context/Search/SearchProvider";
 
 const AppRoutes = () => (
   <Routes>
@@ -10,7 +11,9 @@ const AppRoutes = () => (
       path="/search"
       element={
         <ProtectedRoute>
-          <DogsList />
+          <SearchProvider>
+            <DogsList />
+          </SearchProvider>
         </ProtectedRoute>
       }
     />

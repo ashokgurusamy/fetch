@@ -23,10 +23,10 @@ interface DogCardProps {
   dog: Dog;
 }
 
-const DogCard: React.FC<DogCardProps> = ({ dog}) => {
-    const { favourites, toggleFavourite } = useFavourites();
-    const isFavorite = favourites.some((fav) => fav.id === dog.id);
-    
+const DogCard: React.FC<DogCardProps> = ({ dog }) => {
+  const { favourites, toggleFavourite } = useFavourites();
+  const isFavorite = favourites.some((fav) => fav.id === dog.id);
+
   return (
     <Card
       sx={{
@@ -40,14 +40,15 @@ const DogCard: React.FC<DogCardProps> = ({ dog}) => {
       }}
     >
       <IconButton
-        onClick={() => toggleFavourite(dog)} color={isFavorite ? "error" : "default"}
+        onClick={() => toggleFavourite(dog)}
+        color={isFavorite ? "error" : "default"}
         sx={{
           position: "absolute",
           top: 10,
           right: 10,
           color: isFavorite ? "red" : "gray",
-          outline: 'none !important',
-          '&:focus &:focus-visible': {outline: "none",},
+          outline: "none !important",
+          "&:focus &:focus-visible": { outline: "none" },
         }}
       >
         {isFavorite ? <Favorite /> : <FavoriteBorder />}
