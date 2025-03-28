@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Search } from "./Search";
 import Dog from "./Dog";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress, Divider, Typography } from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useFavourites } from "../../hooks/useFavourites";
 
@@ -96,6 +96,8 @@ export const DogsList = () => {
             
             </Box>
 
+            <Divider sx={{margin: "2em 6em"}}/>
+
 
             {loading ? (
                 <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
@@ -107,7 +109,7 @@ export const DogsList = () => {
                         display: "flex",
                         flexWrap: "wrap",
                         justifyContent: "center",
-                        gap: 2,
+                        gap: 4,
                         mt: 3,
                     }}
                 >
