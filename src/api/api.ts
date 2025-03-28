@@ -104,6 +104,9 @@ export const fetchDogDetails = async (dogIds: string[]): Promise<Dog[]> => {
       method: "POST",
       credentials: "include",
       body: JSON.stringify(dogIds),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
     const data = await response.json();
     return data;

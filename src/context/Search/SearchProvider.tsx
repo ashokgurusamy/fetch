@@ -35,9 +35,12 @@ export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
     setDogResults(result.resultIds.map((id) => dogsCache.current[id]));
     setLoading(false);
   };
+  const initialCall = useRef(false);
   useEffect(() => {
+    if (initialCall.current) return;
     fetchBreeds().then((value) => setBreeds(value));
     handleSearch();
+    initialCall.current = true;
   }, []);
 
   return (

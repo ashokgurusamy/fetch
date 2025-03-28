@@ -1,7 +1,6 @@
 import { createContext } from "react";
 import { Dog, SearchInput } from "../../types/types";
 
-// Define context type
 interface SearchContextType {
   searchInput: SearchInput;
   handleInputChange: (input: SearchInput) => void;
