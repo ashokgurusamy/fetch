@@ -65,12 +65,13 @@ export const Search = (props: any) => {
         display: "flex",
         flexDirection: "column",
         gap: 2,
-        maxWidth: 500,
+        minWidth: "20em",
         mx: "auto",
         p: 3,
         boxShadow: 3,
         borderRadius: 2,
         backgroundColor: "white",
+        flex: 1,
       }}
     >
       {/* Breed Selection */}

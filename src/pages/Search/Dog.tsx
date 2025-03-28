@@ -8,6 +8,7 @@ import {
   Box,
 } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import { useFavourites } from "../../hooks/useFavourites";
 
 interface Dog {
   id: string;
@@ -20,11 +21,12 @@ interface Dog {
 
 interface DogCardProps {
   dog: Dog;
-  isFavorite: boolean;
-  onFavoriteChange: (id: string) => void;
 }
 
-const DogCard: React.FC<DogCardProps> = ({ dog, isFavorite, onFavoriteChange }) => {
+const DogCard: React.FC<DogCardProps> = ({ dog}) => {
+    const { favourites, toggleFavourite } = useFavourites();
+    const isFavorite = favourites.some((fav) => fav.id === dog.id);
+    
   return (
     <Card
       sx={{
@@ -38,12 +40,14 @@ const DogCard: React.FC<DogCardProps> = ({ dog, isFavorite, onFavoriteChange }) 
       }}
     >
       <IconButton
-        onClick={() => onFavoriteChange(dog.id)}
+        onClick={() => toggleFavourite(dog)} color={isFavorite ? "error" : "default"}
         sx={{
           position: "absolute",
           top: 10,
           right: 10,
           color: isFavorite ? "red" : "gray",
+          outline: 'none !important',
+          '&:focus &:focus-visible': {outline: "none",},
         }}
       >
         {isFavorite ? <Favorite /> : <FavoriteBorder />}
