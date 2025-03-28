@@ -2,16 +2,13 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../context/Auth/AuthContext";
 
 const LoginPage = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState("test");
+  const [email, setEmail] = useState("test@gmail.com");
   const { handleLogin } = useContext(AuthContext);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const result = await handleLogin(name, email);
-    if (!result) {
-      alert("Login failed. Please try again.");
-    }
+    await handleLogin(name, email);
   };
 
   return (

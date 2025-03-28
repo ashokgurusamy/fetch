@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
 import { useState, useEffect } from "react";
-import { login, logout } from "../../api/auth";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -12,26 +11,61 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setIsAuthenticated(token);
   }, []);
 
-  const handleLogin = async (name: string, email: string) => {
+  const login = async (name: string, email: string): Promise<boolean> => {
     try {
-      await login(name, email);
-      setIsAuthenticated(true);
-      navigate("/search");
+      const response = await fetch(
+        `${import.meta.env.API_BASE_URL}/auth/login`,
+        {
+          method: "POST",
+          body: JSON.stringify({ name, email }),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Login failed");
+      }
       return true;
     } catch (error) {
-      console.error(error);
+      console.error("Error while logging in", error);
       return false;
     }
   };
 
-  const handleLogout = async () => {
+  const logout = async () => {
     try {
-      await logout();
+      const response = await fetch(
+        `${import.meta.env.API_BASE_URL}/auth/logout`,
+        {
+          method: "POST",
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Logout failed");
+      }
       return true;
     } catch (error) {
-      console.error(error);
+      console.error("Error while logging out", error);
       return false;
     }
+  };
+
+  const handleLogin = async (name: string, email: string) => {
+    const response = await login(name, email);
+    if (!response) {
+      setIsAuthenticated(true);
+      navigate("/search");
+      return;
+    }
+    alert("Login failed. Please try again.");
+  };
+
+  const handleLogout = async () => {
+    const response = await logout();
+    if (!response) {
+      setIsAuthenticated(false);
+      navigate("/");
+      return;
+    }
+    alert("Logout failed. Please try again.");
   };
 
   return (
