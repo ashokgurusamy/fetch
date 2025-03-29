@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const response = await login(name, email);
     if (response) {
       setIsAuthenticated(true);
-      navigate("/search");
+      navigate("/home");
       return;
     }
     alert("Login failed. Please try again.");

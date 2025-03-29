@@ -8,11 +8,14 @@ import {
 } from "../../api/api";
 
 export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
-  const [searchInput, setSearchInput] = useState<SearchInput>({});
+  const [searchInput, setSearchInput] = useState<SearchInput>({size: 24, sort: "breed:asc"});
   const [loading, setLoading] = useState(true);
   const dogsCache = useRef<Record<string, Dog>>({});
   const [breeds, setBreeds] = useState<string[]>([]);
   const [dogResults, setDogResults] = useState<Dog[]>([]);
+  const [isLastPage, setIsLastPage] = useState(false);
+  const [isFirstPage, setisFirstPage] = useState(false);
+  const [totalPages, setTotalPages] = useState(0);
   const handleInputChange = (input: SearchInput) => {
     setSearchInput(input);
   };
@@ -32,16 +35,19 @@ export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
     newDogs.forEach((dog) => {
       dogsCache.current[dog.id] = dog;
     });
+    setTotalPages(Math.ceil(result.total / (searchInput.size || 25)));
+    setisFirstPage(!result.prev);
+    setIsLastPage(!result.next);
     setDogResults(result.resultIds.map((id) => dogsCache.current[id]));
     setLoading(false);
   };
-  const initialCall = useRef(false);
   useEffect(() => {
-    if (initialCall.current) return;
     fetchBreeds().then((value) => setBreeds(value));
-    handleSearch();
-    initialCall.current = true;
   }, []);
+
+  useEffect(() => {
+    handleSearch();
+  }, [searchInput]);
 
   return (
     <SearchContext.Provider
@@ -52,6 +58,9 @@ export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
         dogResults,
         handleSearch,
         loading,
+        isFirstPage,
+        isLastPage,
+        totalPages,
       }}
     >
       {children}

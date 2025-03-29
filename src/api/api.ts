@@ -1,4 +1,10 @@
-import { Dog, SearchInput, SearchResponse } from "../types/types";
+import {
+  Dog,
+  Location,
+  LocationResponse,
+  SearchInput,
+  SearchResponse,
+} from "../types/types";
 
 export const login = async (name: string, email: string): Promise<boolean> => {
   try {
@@ -66,11 +72,14 @@ export const fetchDogIdsBasedOnFilters = async (
 ): Promise<SearchResponse | null> => {
   try {
     const query = new URLSearchParams();
-    if (value.breeds) {
-      query.append("breed", value.breeds.toString());
+    if (value.breeds && value.breeds.length > 0) {
+      query.append("breeds", value.breeds.toString());
     }
-    if (value.zipCodes) {
-      query.append("zipCode", value.zipCodes.toString());
+    if (value.zipCodes && value.zipCodes.length > 0) {
+      query.append(
+        "zipCodes",
+        value.zipCodes.map((value) => value.zip_code).toString()
+      );
     }
     if (value.ageMin) {
       query.append("ageMin", value.ageMin.toString());
@@ -79,10 +88,13 @@ export const fetchDogIdsBasedOnFilters = async (
       query.append("ageMax", value.ageMax.toString());
     }
     if (value.size) {
-      query.append("ageMax", value.size.toString());
+      query.append("size", value.size.toString());
     }
     if (value.from) {
-      query.append("ageMax", value.from.toString());
+      query.append("from", value.from.toString());
+    }
+    if (value.sort) {
+      query.append("sort", value.sort.toString());
     }
     const response = await fetch(
       `${import.meta.env.VITE_API_BASE_URL}/dogs/search?${query.toString()}`,
@@ -112,6 +124,27 @@ export const fetchDogDetails = async (dogIds: string[]): Promise<Dog[]> => {
     return data;
   } catch (error) {
     console.error("Error fetching dog details:", error);
+    return [];
+  }
+};
+
+export const fetchZipsByCity = async (city: string): Promise<Location[]> => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/locations/search`,
+      {
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify({ city }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = (await response.json()) as LocationResponse;
+    return data.results;
+  } catch (error) {
+    console.error("Error fetching zip codes:", error);
     return [];
   }
 };

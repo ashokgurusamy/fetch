@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Card,
   CardMedia,
@@ -8,7 +8,7 @@ import {
   Box,
 } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
-import { useFavourites } from "../../hooks/useFavourites";
+import { FavouritesContext } from "../../context/Favourites/FavouritesContext";
 
 interface Dog {
   id: string;
@@ -24,8 +24,8 @@ interface DogCardProps {
 }
 
 const DogCard: React.FC<DogCardProps> = ({ dog }) => {
-  const { favourites, toggleFavourite } = useFavourites();
-  const isFavorite = favourites.some((fav) => fav.id === dog.id);
+  const { favourites, toggleFavourite } = useContext(FavouritesContext);
+  const isFavorite = favourites.some((favDog) => favDog.id === dog.id);
 
   return (
     <Card
@@ -34,26 +34,9 @@ const DogCard: React.FC<DogCardProps> = ({ dog }) => {
         maxWidth: 300,
         borderRadius: 2,
         boxShadow: 3,
-        transition: "transform 0.2s",
-        "&:hover": { transform: "scale(1.05)" },
         position: "relative",
       }}
     >
-      <IconButton
-        onClick={() => toggleFavourite(dog)}
-        color={isFavorite ? "error" : "default"}
-        sx={{
-          position: "absolute",
-          top: 10,
-          right: 10,
-          color: isFavorite ? "red" : "gray",
-          outline: "none !important",
-          "&:focus &:focus-visible": { outline: "none" },
-        }}
-      >
-        {isFavorite ? <Favorite /> : <FavoriteBorder />}
-      </IconButton>
-
       {/* Dog Image */}
       <CardMedia
         component="img"
@@ -78,6 +61,21 @@ const DogCard: React.FC<DogCardProps> = ({ dog }) => {
           <Typography variant="body2" color="textSecondary">
             <strong>Zip Code:</strong> {dog.zip_code}
           </Typography>
+
+          <IconButton
+            onClick={() => toggleFavourite(dog)}
+            color={isFavorite ? "error" : "default"}
+            sx={{
+              position: "absolute",
+              bottom: 10,
+              right: 10,
+              color: isFavorite ? "red" : "gray",
+              outline: "none !important",
+              "&:focus &:focus-visible": { outline: "none" },
+            }}
+          >
+            {isFavorite ? <Favorite /> : <FavoriteBorder />}
+          </IconButton>
         </Box>
       </CardContent>
     </Card>

@@ -33,10 +33,25 @@ export interface SearchResponse {
 }
 
 export interface SearchInput {
-  zipCodes?: string[];
+  zipCodes?: Location[];
   ageMin?: number;
   ageMax?: number;
   breeds?: string[];
   size?: number;
   from?: string;
+  sort?: string;
+}
+
+export interface Location {
+  zip_code: string;
+  latitude: number;
+  longitude: number;
+  city: string;
+  state: string;
+  county: string;
+}
+
+export interface LocationResponse {
+  results: Location[];
+  total: number;
 }
