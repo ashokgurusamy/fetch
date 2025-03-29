@@ -5,6 +5,7 @@ import { login, logout } from "../../api/api";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,13 +14,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const handleLogin = async (name: string, email: string) => {
+    setLoading(true);
     const response = await login(name, email);
     if (response) {
       setIsAuthenticated(true);
       navigate("/home");
+      setLoading(false);
       return;
     }
     alert("Login failed. Please try again.");
+    setLoading(false);
   };
 
   const handleLogout = async () => {
@@ -34,7 +38,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, handleLogin, handleLogout }}
+      value={{ isAuthenticated, handleLogin, handleLogout, loading }}
     >
       {children}
     </AuthContext.Provider>

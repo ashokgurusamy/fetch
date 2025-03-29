@@ -2,6 +2,7 @@ import { Search } from "../../pages/Search/Search";
 import Dog from "../Dog/Dog";
 import {
   Box,
+  Button,
   CircularProgress,
   Divider,
   Pagination,
@@ -10,11 +11,13 @@ import {
 import { useContext, useEffect } from "react";
 import { SearchContext } from "../../context/Search/SearchContext";
 import { FavouritesContext } from "../../context/Favourites/FavouritesContext";
+import { AuthContext } from "../../context/Auth/AuthContext";
 
 export const DogsList = () => {
   const { dogResults, loading, totalPages, handleInputChange, searchInput } =
     useContext(SearchContext);
   const { resetFav } = useContext(FavouritesContext);
+  const { handleLogout } = useContext(AuthContext);
 
   useEffect(() => {
     resetFav();
@@ -31,13 +34,18 @@ export const DogsList = () => {
       }}
     >
       <Box>
-        <Typography
-          component="h1"
-          variant="h4"
-          sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
-        >
-          Choose your favourites
-        </Typography>
+        <Box display={"flex"}>
+          <Typography
+            component="h1"
+            variant="h4"
+            sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
+          >
+            Choose your favourites
+          </Typography>
+          <Button variant="text" onClick={handleLogout}>
+            Logout
+          </Button>
+        </Box>
         <Search />
         <Divider sx={{ my: 2 }} />
       </Box>
@@ -60,7 +68,7 @@ export const DogsList = () => {
               flexWrap: "wrap",
               justifyContent: "center",
               gap: 4,
-              mt: 3,
+              my: 3,
             }}
           >
             {dogResults.map((dog) => (

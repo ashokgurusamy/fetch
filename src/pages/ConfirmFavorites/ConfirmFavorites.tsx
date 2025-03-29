@@ -1,10 +1,12 @@
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Button, Divider, Typography } from "@mui/material";
 import Dog from "../../components/Dog/Dog";
 import { useContext } from "react";
 import { FavouritesContext } from "../../context/Favourites/FavouritesContext";
+import { AuthContext } from "../../context/Auth/AuthContext";
 
 export const ConfirmFavourties = () => {
   const { favourites } = useContext(FavouritesContext);
+  const { handleLogout } = useContext(AuthContext);
   return (
     <Box
       sx={{
@@ -16,13 +18,18 @@ export const ConfirmFavourties = () => {
       }}
     >
       <Box>
-        <Typography
-          component="h1"
-          variant="h4"
-          sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
-        >
-          Confirm your favorites
-        </Typography>
+        <Box display={"flex"}>
+          <Typography
+            component="h1"
+            variant="h4"
+            sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
+          >
+            Confirm your favorites
+          </Typography>
+          <Button variant="text" onClick={handleLogout}>
+            Logout
+          </Button>
+        </Box>
         <Divider sx={{ my: 2 }} />
       </Box>
       <Box flex={1} overflow={"auto"}>

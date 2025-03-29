@@ -59,7 +59,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
-  const { handleLogin } = useContext(AuthContext);
+  const { handleLogin, loading } = useContext(AuthContext);
 
   const validateInputs = (): boolean => {
     let isValid = true;
@@ -143,8 +143,9 @@ const LoginPage = () => {
             fullWidth
             variant="contained"
             onClick={handleSubmit}
+            disabled={loading}
           >
-            Sign In
+            {loading ? "Sigining In" : "Sign In"}
           </Button>
         </Box>
       </Card>
