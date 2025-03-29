@@ -7,11 +7,14 @@ Here at Fetch, we love dogs, and hope you do too! This project aims to help dog 
 ## 🚀 Getting Started
 
 ### Prerequisites
-Make sure you have **Bun** installed:
-- [Download Bun](https://bun.sh/)
+Make sure you have **Yarn** installed:
 - Verify installation:
   ```sh
-  bun -v
+  yarn -v
+  ```
+- Use following to install yarn:
+  ```sh
+  npm run -g yarn
   ```
 
 ### Installation
@@ -21,29 +24,29 @@ Make sure you have **Bun** installed:
    git clone https://github.com/ashokgurusamy/fetch.git
    cd fetch
    ```
-2. Install dependencies using Bun:
+2. Install dependencies using Yarn:
    ```sh
-   bun install
+   yarn install
    ```
 
 ## 🔥 Development
 To start the development server:
 ```sh
-bun run dev
+yarn run dev
 ```
 This will launch the application with **hot module reloading (HMR)** enabled.
 
 ## 🏗️ Build
 To create a production build:
 ```sh
-bun run build
+yarn run build
 ```
 This compiles the TypeScript and bundles the project using Vite.
 
 ## ✅ Linting
 To check for linting errors:
 ```sh
-bun run lint
+yarn run lint
 ```
 
 ## 🧐 Project Structure
@@ -68,5 +71,4 @@ bun run lint
 - **Material UI** - UI components
 - **React Router** - Client-side routing
 - **ESLint** - Code linting
-- **Bun** - Fast JavaScript runtime
 
