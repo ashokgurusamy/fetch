@@ -55,8 +55,8 @@ const LoginInContainer = styled(Stack)(({ theme }) => ({
 }));
 
 const LoginPage = () => {
-  const [name, setName] = useState("test");
-  const [email, setEmail] = useState("test@gmail.com");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const { handleLogin } = useContext(AuthContext);
