@@ -31,7 +31,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
   }),
 }));
 
-const SingInContainer = styled(Stack)(({ theme }) => ({
+const LoginInContainer = styled(Stack)(({ theme }) => ({
   height: "calc((1 - var(--template-frame-height, 0)) * 100dvh)",
   minHeight: "100%",
   padding: theme.spacing(2),
@@ -91,7 +91,7 @@ const LoginPage = () => {
   };
 
   return (
-    <SingInContainer direction="column" justifyContent="space-between">
+    <LoginInContainer direction="column" justifyContent="space-between">
       <Card variant="outlined">
         <Typography
           component="h1"
@@ -148,7 +148,7 @@ const LoginPage = () => {
           </Button>
         </Box>
       </Card>
-    </SingInContainer>
+    </LoginInContainer>
   );
 };
 
