@@ -1,19 +1,23 @@
 import { Box, CircularProgress, Divider, Typography } from "@mui/material";
-import Dog from "../../components/Dog/Dog";
+import DogCompoent from "../../components/Dog/Dog";
 import { useContext, useEffect, useState } from "react";
 import { FavouritesContext } from "../../context/Favourites/FavouritesContext";
 import { fetchMatchedDog } from "../../api/api";
+import { Dog } from "../../types/types";
 
 export const GenerateMatch = () => {
   const { favourites } = useContext(FavouritesContext);
-  const [matchedDog, setMatchedDog] = useState("");
+  const [matchedDog, setMatchedDog] = useState<Dog | null>(null);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     fetchMatchedDog(favourites.map((value) => value.id))
-      .then((value) => setMatchedDog(value.match))
+      .then((matchedResult) =>
+        setMatchedDog(
+          favourites.find((value) => value.id === matchedResult.match) || null
+        )
+      )
       .finally(() => setLoading(false));
   }, [favourites]);
-  const yourDog = favourites.find((value) => value.id === matchedDog);
   return (
     <Box
       sx={{
@@ -60,11 +64,9 @@ export const GenerateMatch = () => {
               <CircularProgress />
             </Box>
           )}
-          {!loading &&
-            yourDog &&
-            favourites.find((value) => (value.id = matchedDog)) && (
-              <Dog dog={yourDog} disableFavouriteButton={true} />
-            )}
+          {!loading && matchedDog && (
+            <DogCompoent dog={matchedDog} disableFavouriteButton={true} />
+          )}
         </Box>
       </Box>
     </Box>

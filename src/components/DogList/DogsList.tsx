@@ -62,6 +62,11 @@ export const DogsList = () => {
             ))}
           </Box>
         )}
+        {!loading && dogResults.length == 0 && (
+          <Typography variant="h6" sx={{ textAlign: "center" }}>
+            No dogs found. Please try different filters.
+          </Typography>
+        )}
       </Box>
       <Pagination
         count={totalPages}
