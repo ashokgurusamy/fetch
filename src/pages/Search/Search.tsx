@@ -44,7 +44,7 @@ export const Search = () => {
   const [open, setOpen] = useState(false);
 
   const filtersApplied = useMemo(() => {
-    console.log("Search input", searchInput, tempFilterState);
+    debugger;
     return (
       ((searchInput.breeds ||
         searchInput.ageMax ||

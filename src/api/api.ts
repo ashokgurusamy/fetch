@@ -148,3 +148,21 @@ export const fetchZipsByCity = async (city: string): Promise<Location[]> => {
     return [];
   }
 };
+
+export const fetchMatchedDog = async (dogIds: string[]): Promise<{match: string}> => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/dogs/match`, {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(dogIds),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching dog details:", error);
+    return {match: ''};
+  }
+};

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import {
   Card,
   CardMedia,
@@ -9,21 +9,14 @@ import {
 } from "@mui/material";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { FavouritesContext } from "../../context/Favourites/FavouritesContext";
-
-interface Dog {
-  id: string;
-  img: string;
-  name: string;
-  age: number;
-  zip_code: string;
-  breed: string;
-}
+import { Dog } from "../../types/types";
 
 interface DogCardProps {
   dog: Dog;
+  disableFavouriteButton?: boolean;
 }
 
-const DogCard: React.FC<DogCardProps> = ({ dog }) => {
+const DogCard = ({ dog, disableFavouriteButton }: DogCardProps) => {
   const { favourites, toggleFavourite } = useContext(FavouritesContext);
   const isFavorite = favourites.some((favDog) => favDog.id === dog.id);
 
@@ -62,20 +55,23 @@ const DogCard: React.FC<DogCardProps> = ({ dog }) => {
             <strong>Zip Code:</strong> {dog.zip_code}
           </Typography>
 
-          <IconButton
-            onClick={() => toggleFavourite(dog)}
-            color={isFavorite ? "error" : "default"}
-            sx={{
-              position: "absolute",
-              bottom: 10,
-              right: 10,
-              color: isFavorite ? "red" : "gray",
-              outline: "none !important",
-              "&:focus &:focus-visible": { outline: "none" },
-            }}
-          >
-            {isFavorite ? <Favorite /> : <FavoriteBorder />}
-          </IconButton>
+          {!disableFavouriteButton && (
+            <IconButton
+              onClick={() => {
+                toggleFavourite(dog);
+              }}
+              color={isFavorite ? "error" : "default"}
+              sx={{
+                position: "absolute",
+                bottom: 10,
+                right: 10,
+                outline: "none !important",
+                "&:focus &:focus-visible": { outline: "none" },
+              }}
+            >
+              {isFavorite ? <Favorite /> : <FavoriteBorder />}
+            </IconButton>
+          )}
         </Box>
       </CardContent>
     </Card>
