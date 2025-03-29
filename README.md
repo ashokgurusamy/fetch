@@ -1,54 +1,72 @@
-# React + TypeScript + Vite
+# Fetch
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🐶 Fetch - Find Your Furry Friend!
 
-Currently, two official plugins are available:
+Here at Fetch, we love dogs, and hope you do too! This project aims to help dog lovers search through a database of shelter dogs, with the goal of finding a lucky dog a new home!
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Getting Started
 
-## Expanding the ESLint configuration
+### Prerequisites
+Make sure you have **Bun** installed:
+- [Download Bun](https://bun.sh/)
+- Verify installation:
+  ```sh
+  bun -v
+  ```
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Installation
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/ashokgurusamy/fetch.git
+   cd fetch
+   ```
+2. Install dependencies using Bun:
+   ```sh
+   bun install
+   ```
+
+## 🔥 Development
+To start the development server:
+```sh
+bun run dev
+```
+This will launch the application with **hot module reloading (HMR)** enabled.
+
+## 🏗️ Build
+To create a production build:
+```sh
+bun run build
+```
+This compiles the TypeScript and bundles the project using Vite.
+
+## ✅ Linting
+To check for linting errors:
+```sh
+bun run lint
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+## 🧐 Project Structure
 ```
+📂 src
+ ┣ 📂 components   # Reusable UI components
+ ┣ 📂 pages        # Application pages
+ ┣ 📂 hooks        # Custom React hooks
+ ┣ 📂 context      # Context API setup
+ ┣ 📂 api          # API service calls
+ ┣ 📜 main.tsx     # Entry point
+ ┣ 📜 App.tsx      # Root component
+📂 public           # Static assets
+📜 tsconfig.json     # TypeScript configuration
+📜 vite.config.ts    # Vite configuration
+```
+
+## 🛠️ Technologies Used
+- **React 19** - UI library
+- **TypeScript** - Static typing
+- **Vite** - Fast build tool
+- **Material UI** - UI components
+- **React Router** - Client-side routing
+- **ESLint** - Code linting
+- **Bun** - Fast JavaScript runtime
+
