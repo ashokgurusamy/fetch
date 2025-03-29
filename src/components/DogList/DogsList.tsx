@@ -7,12 +7,18 @@ import {
   Pagination,
   Typography,
 } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { SearchContext } from "../../context/Search/SearchContext";
+import { FavouritesContext } from "../../context/Favourites/FavouritesContext";
 
 export const DogsList = () => {
   const { dogResults, loading, totalPages, handleInputChange, searchInput } =
     useContext(SearchContext);
+  const { resetFav } = useContext(FavouritesContext);
+
+  useEffect(() => {
+    resetFav();
+  }, []);
 
   return (
     <Box

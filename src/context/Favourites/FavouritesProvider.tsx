@@ -14,11 +14,14 @@ export const FavouritesProvider: React.FC<{ children: React.ReactNode }> = ({
         : [...prev, dog]
     );
   };
-
-  console.log("Favouriotes", favourites);
+  const resetFav = () => {
+    setFavourites([]);
+  };
 
   return (
-    <FavouritesContext.Provider value={{ favourites, toggleFavourite }}>
+    <FavouritesContext.Provider
+      value={{ favourites, toggleFavourite, resetFav }}
+    >
       {children}
     </FavouritesContext.Provider>
   );
